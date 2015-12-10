@@ -12,17 +12,19 @@
 						
 				<h:form id="cadastro">
 				<p:messages styleClass="erros"/>
-					<h4>
+					<h2>
 						<h:outputText value="Cadastrar Médico" rendered="#{empty medicoBean.medico.id}" />
 						<h:outputText value="Editar Médico" rendered="#{not empty medicoBean.medico.id}" />
-					</h4>
+					</h2>
 					<!-- Exibe as mensagens de erro da aplicação -->
 					
 						<fieldset>
 							<legend>Dados Médico:</legend>
 								<div class="row col s12">
 									<h:outputLabel value="Nome" for="medico"/>
-									<p:inputText value="#{medicoBean.medico.nome}" id="medico"/>
+									<p:inputText value="#{medicoBean.medico.nome}" id="medico">
+										<f:validator validatorId="comecaComMaiuscula"/>
+									</p:inputText>
 									
 									<h:outputLabel value="Telefone" for="telefone"/>
 									<p:inputMask mask="(99) 99999-9999" value="#{medicoBean.medico.telefone}" id="telefone"/>
@@ -38,59 +40,66 @@
 										<f:convertNumber pattern="#,##0.00"></f:convertNumber>
 									</p:inputText>
 									
-									<h:commandButton value="Gravar" type="submit" action="#{medicoBean.gravar}">
+									<h:commandButton value="Gravar" action="#{medicoBean.gravar}">
 										<f:ajax execute="@form" render=":cadastro :lista"/>
+									</h:commandButton>
+								
+									<h:commandButton value="Cancelar" action="#{medicoBean.cancela}">
+										<f:ajax execute="@form" render=":cadastro"/>
 									</h:commandButton>
 								</div>
 						</fieldset>
 					</h:form>
 					
-					<h:form id="lista">
-						<h4>Médicos Cadastrados</h4>
-						<p:dataTable value="#{medicoBean.medicos}" var="medico" paginator="true" rows="4">
-							<p:column>
-								<f:facet name="header">Nome</f:facet>
-								<h:outputText value="#{medico.nome}"/>
-							</p:column>
-							
-							<p:column>
-								<f:facet name="header">Telefone</f:facet>
-								<h:outputText value="#{medico.telefone}"/>
-							</p:column>
-							
-							<p:column>
-								<f:facet name="header">CRM</f:facet>
-								<h:outputText value="#{medico.crm}"/>
-							</p:column>
-							
-							<p:column>
-								<f:facet name="header">Especialização</f:facet>
-								<h:outputText value="#{medico.area}"/>
-							</p:column>
-							
-							<p:column>
-								<f:facet name="header">Salário</f:facet>
-								<h:outputText value="#{medico.salario}">
-									<f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR"/>
-								</h:outputText>
-							</p:column>
-							
-							<p:column>
-							<f:facet name="header">Alterar</f:facet>
-								<h:commandLink value="Alterar">
-									<f:setPropertyActionListener value="#{medico}" target="#{medicoBean.medico}" />
-									<f:ajax execute="@form" render=":cadastro"/>
-								</h:commandLink>
-							</p:column>
-							
-							<p:column>
-								<f:facet name="header">Remover</f:facet>
-								<h:commandLink value="Remover" action="#{medicoBean.remove(medico)}">
-									<f:ajax execute="@form" render=":lista"/>
-								</h:commandLink>
-							</p:column>
-						</p:dataTable>
-				</h:form>
+					<div>
+						<h:form id="lista">
+							<h:messages styleClass="erros"/>
+							<h2>Médicos Cadastrados</h2>
+							<p:dataTable value="#{medicoBean.medicos}" var="medico" paginator="true" rows="4">
+								<p:column>
+									<f:facet name="header">Nome</f:facet>
+									<h:outputText value="#{medico.nome}"/>
+								</p:column>
+								
+								<p:column>
+									<f:facet name="header">Telefone</f:facet>
+									<h:outputText value="#{medico.telefone}"/>
+								</p:column>
+								
+								<p:column>
+									<f:facet name="header">CRM</f:facet>
+									<h:outputText value="#{medico.crm}"/>
+								</p:column>
+								
+								<p:column>
+									<f:facet name="header">Especialização</f:facet>
+									<h:outputText value="#{medico.area}"/>
+								</p:column>
+								
+								<p:column>
+									<f:facet name="header">Salário</f:facet>
+									<h:outputText value="#{medico.salario}">
+										<f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR"/>
+									</h:outputText>
+								</p:column>
+								
+								<p:column>
+								<f:facet name="header">Alterar</f:facet>
+									<h:commandLink value="Alterar" styleClass="btn btn-warning">
+										<f:setPropertyActionListener value="#{medico}" target="#{medicoBean.medico}" />
+										<f:ajax execute="@form" render=":cadastro"/>
+									</h:commandLink>
+								</p:column>
+								
+								<p:column>
+									<f:facet name="header">Remover</f:facet>
+									<h:commandLink value="Remover" action="#{medicoBean.remove(medico)}" styleClass="btn btn-danger">
+										<f:ajax execute="@form" render=":lista"/>
+									</h:commandLink>
+								</p:column>
+							</p:dataTable>
+					</h:form>
+				</div>
 			</ui:define>
 		</ui:composition>
 	</h:body>

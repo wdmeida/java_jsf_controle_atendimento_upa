@@ -17,10 +17,10 @@
 					<!-- Dados do paciente -->
 					<div id="pacientes">
 						<h:form>
-							<h4>
+							<h2>
 								<h:outputText value="Cadastrar Paciente" rendered="#{empty pacienteBean.paciente.id}" />
 								<h:outputText value="Editar Paciente" rendered="#{not empty pacienteBean.paciente.id}" />
-							</h4>
+							</h2>
 							
 							<!-- Exibe as mensagens de erro da aplicação -->
 							<p:messages styleClass="erros"/>
@@ -38,7 +38,7 @@
 								
 								<h:outputLabel value="Data de Nascimento" for="nascimento"/>
 								<p:calendar value="#{pacienteBean.paciente.dataNascimento.time}" pattern="dd/MM/yyyy" id="nascimento"/>
-						
+								
 								<h:outputLabel value="Sexo" for="sexo"/>
 								<p:selectOneMenu value="#{pacienteBean.paciente.sexo}" id="sexo">
 									<f:selectItem itemLabel="Masculino" itemValue="Masculino"/>
@@ -47,13 +47,18 @@
 								<p/>
 								<h:outputLabel value="Endereço" for="endereco"/>
 								<p:inputTextarea value="#{pacienteBean.paciente.endereco}" id="endereco"></p:inputTextarea>
+								
 								<h:commandButton action="#{pacienteBean.gravar}" value="Gravar"/>
+								<h:commandButton action="#{pacienteBean.cancela}" value="Cancelar"/>
+									
+								
 							</fieldset>
 						</h:form>
 		
 						<!-- Listagem com os pacientes cadastrados. -->
 						<h:form>
-							<h4>Pacientes Cadastrados</h4>
+							<h2>Pacientes Cadastrados</h2>
+							<h:messages/>
 							<p:dataTable value="#{pacienteBean.pacientes}" var="paciente" paginator="true" rows="4" id="lista_pacientes">
 								<p:column>
 									<f:facet name="header">Nome</f:facet>
@@ -89,22 +94,22 @@
 								
 								<p:column>
 									<f:facet name="header">Alterar</f:facet>
-									<h:commandLink value="Alterar">
+									<h:commandLink value="Alterar" styleClass="btn btn-warning">
 										<f:setPropertyActionListener value="#{paciente}" target="#{pacienteBean.paciente}"/>
 									</h:commandLink>
 								</p:column>
 								
 								<p:column>
 									<f:facet name="header">Remover</f:facet>
-									<h:commandLink value="Remover" action="#{pacienteBean.remove(paciente)}">
+									<h:commandLink value="Remover" action="#{pacienteBean.remove(paciente)}" styleClass="btn btn-danger">
 										<f:ajax render="lista_pacientes"/> 
 									</h:commandLink>
 								</p:column>
 								
 								<p:column>
 									<f:facet name="header">Agendar Atendimento</f:facet>
-									<h:commandLink value="Agendar Atendimento">
-										<f:setPropertyActionListener value="#{paciente}" target="#{atendimentoBean.atendimento.paciente}"/>
+									<h:commandLink value="Agendar" styleClass="btn btn-sucess">
+										<f:setPropertyActionListener value="#{paciente}" target="#{atendimentoBean.atendimento.paciente}" />
 									</h:commandLink>
 								</p:column>
 							</p:dataTable>
@@ -114,11 +119,14 @@
 				
 				<p:tab title="Agendar Atendimento">
 					<div id="atendimentos">
+						<h2>
+							<h:outputText value="Agendamento"/>
+						</h2>
 							<h:form id="agendar_atendimento" prependId="false">
 							<fieldset>
 								<legend>Dados do Agendamento</legend>
 									<h:outputLabel for="info_paciente_atendimento" value="Paciente" />
-							        <p:inputText id="info_paciente_atendimento" value="#{atendimentoBean.atendimento.paciente.nome}" style="font:bold;" disabled="true"/>
+							        <h:inputText id="info_paciente_atendimento" value="#{atendimentoBean.atendimento.paciente.nome}" style="font-color: black;" disabled="true"/>
 									
 									<h:outputLabel for="data" value="Data da Consulta:"/>
 							        <p:calendar id="data" value="#{atendimentoBean.atendimento.data.time}" pattern="dd/MM/yyyy"/>

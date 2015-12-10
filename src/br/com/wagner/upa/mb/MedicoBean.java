@@ -3,8 +3,10 @@ package br.com.wagner.upa.mb;
 
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import br.com.wagner.upa.dao.DAO;
 import br.com.wagner.upa.modelo.Medico;
@@ -41,10 +43,19 @@ public class MedicoBean {
 		return medicos;
 	}
 	
+	//Reinstância o objeto, liberando os dados armazemados.
+	public void cancela(){
+		this.medico = new Medico();
+	}
+	
 	//Remove um médico da lista caso ele não esteja registrado em algum atendimento.
 	public void remove(Medico medico){
-		DAO<Medico> dao = new DAO<>(Medico.class);
-		dao.remove(medico);
-		this.medicos = dao.listaTodos();
+		try {
+			DAO<Medico> dao = new DAO<>(Medico.class);
+			dao.remove(medico);
+			this.medicos = dao.listaTodos();
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Este médico não pode ser removido."));	
+		}
 	}
 }

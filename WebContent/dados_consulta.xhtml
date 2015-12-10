@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/template.xhtml">
+		<ui:define name="corpo">
+			<h:form id="atendimentos">
+				<h2>
+					Consultas agendadas para o dia <h:outputText value="#{atendimentoBean.dataHoje.time}">
+						<f:convertDateTime dateStyle="short" pattern="dd/MM/yyyy"/>
+					</h:outputText>
+				</h2>
+			</h:form>
+			<h:form id="resultados">
+				<p:dataTable value="#{atendimentoBean.atendimentosDoDia}" var="atendimento" paginator="true" rows="4" styleClass="impar">
+					<p:column>
+						<f:facet name="header">Paciente</f:facet>
+						#{atendimento.paciente.nome}
+					</p:column>
+					<p:column>
+						<f:facet name="header">Médico Responsável</f:facet>
+						#{atendimento.medico.nome}
+					</p:column>
+					<p:column>
+						<f:facet name="header">Data Atendimento</f:facet>
+						<h:outputText value="#{atendimento.data.time}">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeStyle="short"/>
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">Diagnóstico</f:facet>
+						<h:commandLink value="Lançar Diagnóstico">
+							<f:setPropertyActionListener value="#{atendimento}" target="#{atendimentoBean.atendimento}">
+								<f:ajax execute="@form" render=":editar"/>
+							</f:setPropertyActionListener>
+						</h:commandLink>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+			
+			<h:form id="editar">
+				<div>
+				<h2>
+					<h:outputText value="Diagnóstico"/>
+				</h2>
+				<p:messages/>
+					<fieldset>
+						<legend>Diagnóstico do Atendimento:</legend>				
+						<p>
+							<p:outputLabel value="Paciente" for="dado_paciente"/>
+							<h:outputText value="#{atendimentoBean.atendimento.paciente.nome}" id="dado_paciente"/>
+						</p>
+						<br/>
+						<p>
+							<p:outputLabel value="Data da Consulta" for="dado_data"/>
+							<h:outputText value="#{atendimentoBean.atendimento.data.time}" id="dado_data">
+								<f:convertDateTime pattern="dd/MM/yyyy" timeStyle="short"/>
+							</h:outputText>
+						</p>
+						<br/>
+						<p>
+							<p:outputLabel for="receita" value="Receita:"/>
+			        		<p:inputTextarea id="receita" value="#{atendimentoBean.atendimento.receita}" />
+			        	</p>
+			        	<p>
+			        		<p:outputLabel for="recomendacoes" value="Recomendações:"/>
+			        		<p:editor id="recomendacoes" value="#{atendimentoBean.atendimento.recomendacoes}" /> 
+						</p>
+						<h:commandButton value="Gravar" action="#{atendimentoBean.gravar}">
+							<f:ajax execute="@form" render=":editar"/>
+						</h:commandButton>
+						<h:commandButton value="Cancelar" action="#{atendimentoBean.cancela}">
+							<f:ajax execute="@form" render=":editar"/>
+						</h:commandButton>
+					</fieldset>
+				</div>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</html>

@@ -9,5 +9,5 @@
 	<lifecycle>
 		<phase-listener>br.com.wagner.upa.listener.Autorizador</phase-listener>
 	</lifecycle>
-
+	
 </faces-config>

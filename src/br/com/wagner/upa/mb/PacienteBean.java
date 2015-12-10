@@ -2,8 +2,10 @@ package br.com.wagner.upa.mb;
 
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import br.com.wagner.upa.dao.DAO;
 import br.com.wagner.upa.modelo.Paciente;
@@ -39,12 +41,16 @@ public class PacienteBean {
 	}
 	
 	public void remove(Paciente paciente){
-		DAO<Paciente> dao = new DAO<>(Paciente.class);
-		dao.remove(paciente);
-		pacientes = dao.listaTodos();
+		try {
+			DAO<Paciente> dao = new DAO<>(Paciente.class);
+			dao.remove(paciente);
+			pacientes = dao.listaTodos();
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Este paciente não pode ser removido."));
+		}
 	}
 	
 	public void cancela(){
-		paciente =  new Paciente();
+		this.paciente =  new Paciente();
 	}
 }

@@ -9,14 +9,12 @@
 	
 	<h:head>
 		<title>Unidade de Pronto Atendimento</title>
-		<!--Import Google Icon Font-->
       	<h:outputStylesheet name="style.css" library="css"/>   	
-		<h:outputStylesheet name="materialize.min.css" library="css"/>
-		
 	</h:head>
 	
 	<h:body>
 		<div id="cabecalho">
+		<h:graphicImage library="imagens" name="upa_samu.jpg" id="logoCompany"/>
 			<div id="usuarioLogado">
 				<h:form rendered="#{not empty loginBean.usuario.usuario}">
 					Bem vindo #{loginBean.usuario.usuario}
@@ -39,11 +37,15 @@
 		</div>	
 		
 		<div id="conteudo">
+			
 			<h:form rendered="#{not empty loginBean.usuario.usuario}">
 					<p:menubar>
 						<p:menuitem value="Médicos" action="medico.xhtml"/>
 						<p:menuitem value="Pacientes" action="paciente.xhtml"/>
-						<p:menuitem value="Atendimentos" action="atendimento.xhtml"/>
+						<p:submenu label="Atendimento">
+							<p:menuitem value="Agenda" action="dados_consulta.xhtml"/>
+							<p:menuitem value="Listar" action="atendimento.xhtml"/>
+						</p:submenu>
 						<p:menuitem value="Sair" action="#{loginBean.logout}"/>
 					</p:menubar>
 			</h:form>
@@ -51,7 +53,8 @@
 		</div>
 		
 		<div id="rodape">
-			Unidade de Pronto Atendimento - 2015
+			Curso Superior de Tecnologia em Sistemas para Internet<br/> 
+			Desenvolvimento de Aplicações Web - 2015<br/>
 		</div>
 		<h:outputScript name="script.js" library="js"/>
 	</h:body>

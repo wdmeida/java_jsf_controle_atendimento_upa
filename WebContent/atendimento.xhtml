@@ -9,10 +9,35 @@
 
 	<ui:composition template="/template.xhtml">
 		<ui:define name="corpo">
-	       	<h:outputText for="receita" value="Receita:"/>
-	        <p:inputTextarea id="receita" value="#{atendimentoBean.atendimento.receita}"/>
-	        <p:outputLabel for="recomendacoes" value="Recomendações:"/>
-	        <p:editor id="recomendacoes" value="#{atendimentoBean.atendimento.recomendacoes}"  />
+				<h2>
+					<h:outputText value="Atendimentos Realizados"/>
+				</h2>
+			<h:form id="atendimentos">
+				<p:dataTable value="#{atendimentoBean.atendimentos}" var="atendimento" paginator="true" rows="4" styleClass="impar">
+					<p:column>
+						<f:facet name="header">Paciente</f:facet>
+						#{atendimento.paciente.nome}
+					</p:column>
+					<p:column>
+						<f:facet name="header">Médico Responsável</f:facet>
+						#{atendimento.medico.nome}
+					</p:column>
+					<p:column>
+						<f:facet name="header">Data Atendimento</f:facet>
+						<h:outputText value="#{atendimento.data.time}">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeStyle="short"/>
+						</h:outputText>
+					</p:column>
+					<p:column style="white-space:normal !important;">
+						<f:facet name="header">Receita</f:facet>
+						<h:outputText value="#{atendimento.receita}" escape="false" style="word-wrap: break-word;"/>
+					</p:column>
+					<p:column>
+						<f:facet name="header">Recomendações</f:facet>
+						<h:outputText value="#{atendimento.recomendacoes}" escape="false"/>
+					</p:column>
+				</p:dataTable>
+			</h:form>
 		</ui:define>
 	</ui:composition>
 </html>

@@ -21,6 +21,7 @@ public class Atendimento {
 	@Temporal(TemporalType.DATE)
 	private Calendar data;
 	private String receita;
+	
 	private String recomendacoes;
 	
 	@ManyToOne

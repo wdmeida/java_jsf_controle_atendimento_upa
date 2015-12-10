@@ -10,7 +10,7 @@ body{
 
 /** cabecalho **/
 #cabecalho, header{
-	background-color:#6D85F2;
+	background-color:#2E8B57;
 	height: 60px;
 	position: relative;
 }
@@ -60,13 +60,14 @@ body{
 
 /** rodape **/
 #rodape, footer { 
-	background-color:#6D85F2;
+	background-color:#2E8B57;
 	width:100%;
 	position:fixed;
 	bottom: 0;
 	padding:10px 0px;
 	text-align: center;
-	font-size:10px; 
+	font-size:12px;
+	font-weight: bold; 
 	color:#FFF;
 	display: block;
 }
@@ -238,6 +239,38 @@ table.dados tr td{
   display: inline;
   
   
+}
+
+.wag_btn{
+	display: inline-block;
+	background-color: #ccc;
+	color: #444;
+	padding: 10px 20px;
+	text-decoration: none;
+	box-sizing: border-box;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	border: 0px;
+}
+
+.wag-primary {
+	color: #fff;
+	background-color: #0068B4;
+}
+ 
+.wag-success {
+	color: #fff;
+	background-color: #009835;
+}
+ 
+.wag-error {
+	color: #fff;
+	background-color: #CC0000;
+}
+ 
+.wag-warning {
+	color: #fff;
+	background-color: #F28E00;
 }
 
 .btn {
