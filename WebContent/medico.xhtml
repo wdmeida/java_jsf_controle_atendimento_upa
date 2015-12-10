@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<h:body>
+		<ui:composition template="/template.xhtml">
+			<ui:define name="corpo">
+						
+				<h:form id="cadastro">
+				<p:messages styleClass="erros"/>
+					<h4>
+						<h:outputText value="Cadastrar Médico" rendered="#{empty medicoBean.medico.id}" />
+						<h:outputText value="Editar Médico" rendered="#{not empty medicoBean.medico.id}" />
+					</h4>
+					<!-- Exibe as mensagens de erro da aplicação -->
+					
+						<fieldset>
+							<legend>Dados Médico:</legend>
+								<div class="row col s12">
+									<h:outputLabel value="Nome" for="medico"/>
+									<p:inputText value="#{medicoBean.medico.nome}" id="medico"/>
+									
+									<h:outputLabel value="Telefone" for="telefone"/>
+									<p:inputMask mask="(99) 99999-9999" value="#{medicoBean.medico.telefone}" id="telefone"/>
+									
+									<h:outputLabel value="CRM" for="crm"/>
+									<p:inputText value="#{medicoBean.medico.crm}" id="crm"/>
+									
+									<h:outputLabel value="Especialização" for="area"/>
+									<p:inputText value="#{medicoBean.medico.area}" id="area"/>
+									
+									<h:outputLabel value="Salário" for="salario"/>
+									<p:inputText value="#{medicoBean.medico.salario}" id="salario">
+										<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+									</p:inputText>
+									
+									<h:commandButton value="Gravar" type="submit" action="#{medicoBean.gravar}">
+										<f:ajax execute="@form" render=":cadastro :lista"/>
+									</h:commandButton>
+								</div>
+						</fieldset>
+					</h:form>
+					
+					<h:form id="lista">
+						<h4>Médicos Cadastrados</h4>
+						<p:dataTable value="#{medicoBean.medicos}" var="medico" paginator="true" rows="4">
+							<p:column>
+								<f:facet name="header">Nome</f:facet>
+								<h:outputText value="#{medico.nome}"/>
+							</p:column>
+							
+							<p:column>
+								<f:facet name="header">Telefone</f:facet>
+								<h:outputText value="#{medico.telefone}"/>
+							</p:column>
+							
+							<p:column>
+								<f:facet name="header">CRM</f:facet>
+								<h:outputText value="#{medico.crm}"/>
+							</p:column>
+							
+							<p:column>
+								<f:facet name="header">Especialização</f:facet>
+								<h:outputText value="#{medico.area}"/>
+							</p:column>
+							
+							<p:column>
+								<f:facet name="header">Salário</f:facet>
+								<h:outputText value="#{medico.salario}">
+									<f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR"/>
+								</h:outputText>
+							</p:column>
+							
+							<p:column>
+							<f:facet name="header">Alterar</f:facet>
+								<h:commandLink value="Alterar">
+									<f:setPropertyActionListener value="#{medico}" target="#{medicoBean.medico}" />
+									<f:ajax execute="@form" render=":cadastro"/>
+								</h:commandLink>
+							</p:column>
+							
+							<p:column>
+								<f:facet name="header">Remover</f:facet>
+								<h:commandLink value="Remover" action="#{medicoBean.remove(medico)}">
+									<f:ajax execute="@form" render=":lista"/>
+								</h:commandLink>
+							</p:column>
+						</p:dataTable>
+				</h:form>
+			</ui:define>
+		</ui:composition>
+	</h:body>
+
+</html>
