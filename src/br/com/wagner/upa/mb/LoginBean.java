@@ -26,7 +26,7 @@ public class LoginBean {
 		boolean loginValido = UsuarioDAO.usuarioExiste(usuario);
 		
 		//Caso sejam redireciona para a página inicial da aplicação.
-		if(loginValido) return "paciente?faces-redirect=true";
+		if(loginValido) return "dados_consulta?faces-redirect=true";
 		else{
 			//Caso não seja, limpa os dados inseridos e redireciona para a tela de login.
 			this.usuario = new Usuario();

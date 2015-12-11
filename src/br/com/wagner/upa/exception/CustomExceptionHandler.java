@@ -53,19 +53,6 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 	            // Aqui tentamos tratar a exeção
 	            try {
 	 
-//	                // Aqui você poderia por exemploinstanciar as classes StringWriter e PrintWriter
-//	                StringWriter stringWriter = new StringWriter();
-//	                // PrintWriter printWriter = new PrintWriter(stringWriter);
-//	                // exception.printStackTrace(printWriter);
-//	                // Por fim você pode converter a pilha de exceções em uma String
-//	                String message = stringWriter.toString();
-	//
-//	                // Aqui você poderia enviar um email com a StackTrace
-//	                // em anexo para a equipe de desenvolvimento
-	//
-//	                // e depois imprimir a stacktrace no log
-//	                exception.printStackTrace();
-	 
 	                // Coloca uma mensagem de exceção no mapa da request
 	                requestMap.put("exceptionMessage", exception.getMessage());
 	 

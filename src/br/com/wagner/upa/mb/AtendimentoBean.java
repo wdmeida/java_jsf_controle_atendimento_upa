@@ -4,13 +4,13 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 
 import br.com.wagner.upa.dao.AtendimentoDAO;
 import br.com.wagner.upa.dao.DAO;
 import br.com.wagner.upa.modelo.Atendimento;
 
-@ViewScoped
+@SessionScoped
 @ManagedBean
 public class AtendimentoBean {
 	private Atendimento atendimento = new Atendimento();

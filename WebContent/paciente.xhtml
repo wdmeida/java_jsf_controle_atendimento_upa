@@ -48,7 +48,9 @@
 								<h:outputLabel value="Endereço" for="endereco"/>
 								<p:inputTextarea value="#{pacienteBean.paciente.endereco}" id="endereco"></p:inputTextarea>
 								
-								<h:commandButton action="#{pacienteBean.gravar}" value="Gravar" />
+								<h:commandButton action="#{pacienteBean.gravar}" value="Gravar" >
+									<f:setPropertyActionListener value="#{pacienteBean.paciente}" target="#{atendimentoBean.atendimento.paciente}"/>
+								</h:commandButton>
 								<h:commandButton action="#{pacienteBean.cancela}" value="Cancelar"/>
 									
 							</fieldset>

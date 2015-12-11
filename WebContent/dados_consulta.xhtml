@@ -34,10 +34,10 @@
 					</p:column>
 					<p:column>
 						<f:facet name="header">Diagnóstico</f:facet>
-						<h:commandLink value="Lançar Diagnóstico">
-							<f:setPropertyActionListener value="#{atendimento}" target="#{atendimentoBean.atendimento}">
-								<f:ajax execute="@form" render=":editar"/>
-							</f:setPropertyActionListener>
+						<h:commandLink value="Lançar Diagnóstico" styleClass="btn btn-sucess">
+							<f:ajax execute="@form" render=":editar">
+								<f:setPropertyActionListener value="#{atendimento}" target="#{atendimentoBean.atendimento}"/>
+							</f:ajax>
 						</h:commandLink>
 					</p:column>
 				</p:dataTable>
