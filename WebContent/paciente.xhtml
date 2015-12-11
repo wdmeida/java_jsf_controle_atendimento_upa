@@ -16,7 +16,7 @@
 				<p:tab title="Paciente" id="info_pacientes">
 					<!-- Dados do paciente -->
 					<div id="pacientes">
-						<h:form>
+						<h:form id="pac">
 							<h2>
 								<h:outputText value="Cadastrar Paciente" rendered="#{empty pacienteBean.paciente.id}" />
 								<h:outputText value="Editar Paciente" rendered="#{not empty pacienteBean.paciente.id}" />
@@ -48,17 +48,17 @@
 								<h:outputLabel value="Endereço" for="endereco"/>
 								<p:inputTextarea value="#{pacienteBean.paciente.endereco}" id="endereco"></p:inputTextarea>
 								
-								<h:commandButton action="#{pacienteBean.gravar}" value="Gravar"/>
+								<h:commandButton action="#{pacienteBean.gravar}" value="Gravar" />
 								<h:commandButton action="#{pacienteBean.cancela}" value="Cancelar"/>
 									
-								
 							</fieldset>
 						</h:form>
 		
 						<!-- Listagem com os pacientes cadastrados. -->
 						<h:form>
+							<p:messages styleClass="erros"/>
 							<h2>Pacientes Cadastrados</h2>
-							<h:messages/>
+							
 							<p:dataTable value="#{pacienteBean.pacientes}" var="paciente" paginator="true" rows="4" id="lista_pacientes">
 								<p:column>
 									<f:facet name="header">Nome</f:facet>
@@ -126,7 +126,7 @@
 							<fieldset>
 								<legend>Dados do Agendamento</legend>
 									<h:outputLabel for="info_paciente_atendimento" value="Paciente" />
-							        <h:inputText id="info_paciente_atendimento" value="#{atendimentoBean.atendimento.paciente.nome}" style="font-color: black;" disabled="true"/>
+							        <p:inputText id="info_paciente_atendimento" value="#{atendimentoBean.atendimento.paciente.nome}" style="color: black;" disabled="true"/>
 									
 									<h:outputLabel for="data" value="Data da Consulta:"/>
 							        <p:calendar id="data" value="#{atendimentoBean.atendimento.data.time}" pattern="dd/MM/yyyy"/>

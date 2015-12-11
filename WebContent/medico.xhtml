@@ -22,9 +22,7 @@
 							<legend>Dados Médico:</legend>
 								<div class="row col s12">
 									<h:outputLabel value="Nome" for="medico"/>
-									<p:inputText value="#{medicoBean.medico.nome}" id="medico">
-										<f:validator validatorId="comecaComMaiuscula"/>
-									</p:inputText>
+									<p:inputText value="#{medicoBean.medico.nome}" id="medico"/>
 									
 									<h:outputLabel value="Telefone" for="telefone"/>
 									<p:inputMask mask="(99) 99999-9999" value="#{medicoBean.medico.telefone}" id="telefone"/>
@@ -36,8 +34,8 @@
 									<p:inputText value="#{medicoBean.medico.area}" id="area"/>
 									
 									<h:outputLabel value="Salário" for="salario"/>
-									<p:inputText value="#{medicoBean.medico.salario}" id="salario">
-										<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+									<p:inputText value="#{medicoBean.medico.salario}" id="salario" validatorMessage="O valor deve ser superior a R$ 4.000,00">
+										<f:validateDoubleRange minimum="4000"/>
 									</p:inputText>
 									
 									<h:commandButton value="Gravar" action="#{medicoBean.gravar}">
@@ -53,7 +51,7 @@
 					
 					<div>
 						<h:form id="lista">
-							<h:messages styleClass="erros"/>
+							<p:messages styleClass="erros"/>
 							<h2>Médicos Cadastrados</h2>
 							<p:dataTable value="#{medicoBean.medicos}" var="medico" paginator="true" rows="4">
 								<p:column>

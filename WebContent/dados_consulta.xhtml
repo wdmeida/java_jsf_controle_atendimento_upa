@@ -16,7 +16,7 @@
 					</h:outputText>
 				</h2>
 			</h:form>
-			<h:form id="resultados">
+			<h:form id="resultados" prependId="false">
 				<p:dataTable value="#{atendimentoBean.atendimentosDoDia}" var="atendimento" paginator="true" rows="4" styleClass="impar">
 					<p:column>
 						<f:facet name="header">Paciente</f:facet>
@@ -43,7 +43,7 @@
 				</p:dataTable>
 			</h:form>
 			
-			<h:form id="editar">
+			<h:form id="editar" prependId="false">
 				<div>
 				<h2>
 					<h:outputText value="Diagnóstico"/>

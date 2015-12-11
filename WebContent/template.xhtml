@@ -17,7 +17,9 @@
 		<h:graphicImage library="imagens" name="upa_samu.jpg" id="logoCompany"/>
 			<div id="usuarioLogado">
 				<h:form rendered="#{not empty loginBean.usuario.usuario}">
-					Bem vindo #{loginBean.usuario.usuario}
+					Barbacena, <h:outputText value="#{atendimentoBean.dataHoje.time}">
+						<f:convertDateTime dateStyle="short" pattern="dd/MM/yyyy"/>
+					</h:outputText>.
 				</h:form>	
 			</div>
 			
