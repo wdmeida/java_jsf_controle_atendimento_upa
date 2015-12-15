@@ -12,11 +12,10 @@
 		<ui:composition template="/template.xhtml">
 			<ui:define name="corpo">
 			
-			<p:tabView>
+			<p:tabView id="dados_pacientes">
 				<p:tab title="Paciente" id="info_pacientes">
 					<!-- Dados do paciente -->
-					<div id="pacientes">
-						<h:form id="pac">
+						<h:form id="pacientes">
 							<h2>
 								<h:outputText value="Cadastrar Paciente" rendered="#{empty pacienteBean.paciente.id}" />
 								<h:outputText value="Editar Paciente" rendered="#{not empty pacienteBean.paciente.id}" />
@@ -50,18 +49,21 @@
 								
 								<h:commandButton action="#{pacienteBean.gravar}" value="Gravar" >
 									<f:setPropertyActionListener value="#{pacienteBean.paciente}" target="#{atendimentoBean.atendimento.paciente}"/>
+									<f:ajax execute="@form" render=":dados_pacientes:pacientes :dados_pacientes:lista_pacientes"/>
 								</h:commandButton>
-								<h:commandButton action="#{pacienteBean.cancela}" value="Cancelar"/>
+								<h:commandButton action="#{pacienteBean.cancela}" value="Cancelar">
+									<f:ajax execute="@form" render=":dados_pacientes:pacientes"/>
+								</h:commandButton>
 									
 							</fieldset>
 						</h:form>
 		
 						<!-- Listagem com os pacientes cadastrados. -->
-						<h:form>
+						<h:form id="lista_pacientes">
 							<p:messages styleClass="erros"/>
 							<h2>Pacientes Cadastrados</h2>
 							
-							<p:dataTable value="#{pacienteBean.pacientes}" var="paciente" paginator="true" rows="4" id="lista_pacientes">
+							<p:dataTable value="#{pacienteBean.pacientes}" var="paciente" paginator="true" rows="4">
 								<p:column>
 									<f:facet name="header">Nome</f:facet>
 									<h:outputText value="#{paciente.nome}"/>
@@ -98,13 +100,14 @@
 									<f:facet name="header">Alterar</f:facet>
 									<h:commandLink value="Alterar" styleClass="btn btn-warning">
 										<f:setPropertyActionListener value="#{paciente}" target="#{pacienteBean.paciente}"/>
+										<f:ajax execute="@form" render=":dados_pacientes:pacientes"/>
 									</h:commandLink>
 								</p:column>
 								
 								<p:column>
 									<f:facet name="header">Remover</f:facet>
 									<h:commandLink value="Remover" action="#{pacienteBean.remove(paciente)}" styleClass="btn btn-danger">
-										<f:ajax render="lista_pacientes"/> 
+										<f:ajax execute="@form" render=":dados_pacientes:lista_pacientes"/> 
 									</h:commandLink>
 								</p:column>
 								
@@ -116,15 +119,13 @@
 								</p:column>
 							</p:dataTable>
 						</h:form>
-					</div>
 				</p:tab>
 				
 				<p:tab title="Agendar Atendimento">
-					<div id="atendimentos">
 						<h2>
 							<h:outputText value="Agendamento"/>
 						</h2>
-							<h:form id="agendar_atendimento" prependId="false">
+							<h:form id="atendimento" prependId="false">
 							<fieldset>
 								<legend>Dados do Agendamento</legend>
 									<h:outputLabel for="info_paciente_atendimento" value="Paciente" />
@@ -143,7 +144,6 @@
 						       <h:commandButton value="Agendar" action="#{atendimentoBean.gravar}"/>
 					        </fieldset>
 					        </h:form>
-					    </div>
 					 </p:tab>
 				 </p:tabView>
 			</ui:define>
